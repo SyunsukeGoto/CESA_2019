@@ -279,3 +279,6 @@ C:\Users\s172078\Documents\Unity\CESA_2019\Temp\bin\Debug\UnityEngine.GoogleAudi
 C:\Users\s172078\Documents\Unity\CESA_2019\Temp\bin\Debug\UnityEngine.SpatialTracking.xml
 C:\Users\s172078\Documents\Unity\CESA_2019\obj\Debug\Assembly-CSharp.dll
 C:\Users\s172078\Documents\Unity\CESA_2019\obj\Debug\Assembly-CSharp.pdb
+C:\Users\s172203\Documents\CESA_2019\CESA_2019\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+C:\Users\s172203\Documents\CESA_2019\CESA_2019\obj\Debug\Assembly-CSharp.dll
+C:\Users\s172203\Documents\CESA_2019\CESA_2019\obj\Debug\Assembly-CSharp.pdb
