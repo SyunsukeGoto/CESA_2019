@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Goal
+  - TypeA
+  - TypeB
+  - TypeC
   layers:
   - Default
   - TransparentFX

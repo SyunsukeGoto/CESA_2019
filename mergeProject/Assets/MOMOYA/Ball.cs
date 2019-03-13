@@ -17,6 +17,8 @@ public class Ball : MonoBehaviour
 
     private Rigidbody2D _rigid2D; //リジットボディ
 
+    private string _hitTag;      //当たったタグ
+
     public Goto.Flag _goalFlag;  //ゴール系統に使うフラグ
 
     enum GoalFlag
@@ -52,16 +54,27 @@ public class Ball : MonoBehaviour
             Debug.Log("ゴール!");
             _goalFlag.OffFlag((uint)GoalFlag.GOAL);
         }
-               
+
+        Debug.Log("今当たっているtagは" + _hitTag);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+       
+
         //ゴールのタグに触れていたら
-        if (collision.transform.tag == "Goal")
+        if (collision.tag == "Goal")
         {
             //ゴールフラグをtrue
             _goalFlag.OnFlag((uint)GoalFlag.GOAL);
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+
+        //当たっているタグを取得
+        _hitTag = collision.gameObject.tag;
+    }
+
 }
