@@ -57,7 +57,10 @@ public class Ball : MonoBehaviour
 
         Debug.Log("今当たっているtagは" + _hitTag);
     }
-
+    //星が輝いてる間にその時を生きよう
+    //輝きは一瞬だけどそれを大事にしよう
+    //偶然に頼りすぎるゲームはだめ
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
        

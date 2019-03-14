@@ -654,6 +654,16 @@ PrefabInstance:
       propertyPath: _targetCamera
       value: 
       objectReference: {fileID: 579452345}
+    - target: {fileID: 5289380764129045864, guid: 86a1b23a8982efe4cb8ae24c5fe7415b,
+        type: 3}
+      propertyPath: _mesh
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 5289380764129045864, guid: 86a1b23a8982efe4cb8ae24c5fe7415b,
+        type: 3}
+      propertyPath: __radiusPixel
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 5289380764129045866, guid: 86a1b23a8982efe4cb8ae24c5fe7415b,
         type: 3}
       propertyPath: _triangleArray.Array.size
