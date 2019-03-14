@@ -28,13 +28,6 @@ namespace Goto
         
         private float ArrivalTime = 10;                 // frame count(本来はtimeがいい)
 
-
-        public enum PunipuniFlag
-        {
-            RECHECK_START = (1 << 0),
-            RECHECK_END = (1 << 1)
-        }
-
         /// <summary>
         /// ぷにぷにコントローラーの表示設定
         /// </summary>
@@ -169,9 +162,6 @@ namespace Goto
 
             // メッシュの更新
             _puniMesh.Vertexes = TransformFromBezier(new Vector3());
-
-            Vector2 centerPos = _bezierCenter.GetPosition(0.8f);
-            _puniMesh.CenterPoint = centerPos;
         }
 
         /// <summary>
@@ -218,10 +208,10 @@ namespace Goto
             { // 先端制御点
                 if (bezier.P3 != null)
                 {
-                    var vec = baseBezier.P1 - bezier.P1;
+                    Vector2 vec = baseBezier.P1 - bezier.P1;
                     vec = vec.normalized * (this._radius / 4);
 
-                    var pos = bezier.P3 - bezier.P4;
+                    Vector2 pos = bezier.P3 - bezier.P4;
                     pos += vec;
                     pos /= this.ArrivalTime;
                     bezier.P3 -= pos;
@@ -234,18 +224,17 @@ namespace Goto
 
             { // 中心制御点
               // 最終的な位置
-                var ev = baseBezier.P4 - baseBezier.P1;
-                var len = ev.magnitude;
+                Vector2 ev = baseBezier.P4 - baseBezier.P1;
+                float len = ev.magnitude;
                 ev = ev.normalized;
                 ev *= (len / 4);
                 ev += bezier.P1;
 
                 if (bezier.P2 != null)
                 {
-                    var v = ev - bezier.P2;
+                    Vector2 v = ev - bezier.P2;
                     v /= 3; // this.ArrivalTime;
                     bezier.P2 += v;
-                    //bez.P2 = ev;
                 }
                 else
                 {

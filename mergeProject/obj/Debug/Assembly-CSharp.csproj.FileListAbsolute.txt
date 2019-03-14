@@ -278,3 +278,6 @@ C:\Users\s172091\Desktop\mergeProject\Temp\bin\Debug\UnityEngine.GoogleAudioSpat
 C:\Users\s172091\Desktop\mergeProject\Temp\bin\Debug\UnityEngine.SpatialTracking.xml
 C:\Users\s172091\Desktop\mergeProject\obj\Debug\Assembly-CSharp.dll
 C:\Users\s172091\Desktop\mergeProject\obj\Debug\Assembly-CSharp.pdb
+C:\Users\s172078\Documents\GitHub\CESA_2019\mergeProject\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+C:\Users\s172078\Documents\GitHub\CESA_2019\mergeProject\obj\Debug\Assembly-CSharp.dll
+C:\Users\s172078\Documents\GitHub\CESA_2019\mergeProject\obj\Debug\Assembly-CSharp.pdb
