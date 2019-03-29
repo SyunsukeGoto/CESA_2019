@@ -35,11 +35,11 @@ namespace Momoya
         private Rigidbody _rg;        //リジットボディ
         [SerializeField]
         private KeyCode[] _moveKey = new KeyCode[(int)MoveDirection.NUM];//移動キー
-                                                                         //変更前のステート名
-        private string _beforeStateName;
+                                                                    
+        private string _beforeStateName;                                 //変更前のステート名
 
 
-        public StateProcessor _stateProcessor = new StateProcessor();           //プロセッサー
+        public StateProcessor _stateProcessor = new StateProcessor();    //プロセッサー
 
         //ステートの宣言
         public StateDefault _stateDefault = new StateDefault();                 //デフォルト状態
@@ -57,7 +57,7 @@ namespace Momoya
 
             //初期ステートをdefaultにする
             _stateProcessor.State = _stateDefault;
-            //委譲処理
+            //委譲の設定
             _stateDefault.execDelegate = Default;
             _stateWalk.execDelegate = Walk;
             _stateJump.execDelegate = Jump;
