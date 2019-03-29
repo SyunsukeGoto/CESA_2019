@@ -139,7 +139,7 @@ namespace Momoya
         public void PlayerCtrl()
         {
             //速度を足す
-            _rg.velocity = _vec;
+            _rg.velocity = new Vector3(_vec.x, this._rg.velocity.y, _vec.z);
 
             //落下ポイントよりポジションが低ければ初期位置に戻す
             if (_rg.position.y < DropdownPoint)
