@@ -1,15 +1,84 @@
-Base path: C:/Program Files/Unity/Hub/Editor/2018.3.6f1/Editor/Data
+Base path: C:/Program Files/Unity/Editor/Data
 Cmd: initializeCompiler
-Cmd: initializeCompiler
-Cmd: initializeCompiler
-Cmd: initializeCompiler
-Cmd: initializeCompiler
-Cmd: initializeCompiler
-Cmd: initializeCompiler
-Cmd: initializeCompiler
-Cmd: initializeCompiler
-Cmd: initializeCompiler
-Cmd: initializeCompiler
-Cmd: initializeCompiler
+Cmd: preprocess
+  insize=10808 outsize=1859 ok=1
+Cmd: preprocess
+  insize=11891 outsize=680 ok=1
+Cmd: preprocess
+  insize=1529 outsize=483 ok=1
+Cmd: preprocess
+  insize=1287 outsize=352 ok=1
+Cmd: preprocess
+  insize=2261 outsize=504 ok=1
+Cmd: preprocess
+  insize=7452 outsize=738 ok=1
+Cmd: compileSnippet
+  error: 2 plat 4 at (40): failed to open source file: 'frag_ao.cginc'\nCompiling Vertex program
+Platform defines: UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_COLORSPACE_GAMMA UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR
+  api=4 type=0 insize=2314 outsize=0 kw= pd=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_COLORSPACE_GAMMA UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR ok=0
+Cmd: preprocess
+  insize=1544 outsize=303 ok=1
+Cmd: preprocess
+  insize=3363 outsize=707 ok=1
+Cmd: preprocess
+  insize=1131 outsize=287 ok=1
+Cmd: preprocess
+  insize=1700 outsize=397 ok=1
+Cmd: preprocess
+  insize=1887 outsize=349 ok=1
+Cmd: preprocess
+  insize=1639 outsize=323 ok=1
+Cmd: preprocess
+  insize=1089 outsize=264 ok=1
+Cmd: preprocess
+  insize=8460 outsize=1141 ok=1
+Cmd: preprocess
+  insize=33726 outsize=253 ok=1
+Cmd: preprocess
+  insize=1347 outsize=247 ok=1
+Cmd: preprocess
+  insize=6594 outsize=1574 ok=1
+Cmd: preprocess
+  insize=16350 outsize=2229 ok=1
+Cmd: preprocess
+  insize=2262 outsize=293 ok=1
+Cmd: preprocess
+  insize=30410 outsize=3890 ok=1
+Cmd: preprocess
+  insize=2555 outsize=286 ok=1
+Cmd: preprocess
+  insize=7068 outsize=781 ok=1
+Cmd: preprocess
+  insize=6973 outsize=655 ok=1
+Cmd: preprocess
+  insize=674 outsize=376 ok=1
+Cmd: preprocess
+  insize=10247 outsize=972 ok=1
+Cmd: preprocess
+  insize=33735 outsize=253 ok=1
+Cmd: preprocess
+  insize=6480 outsize=1808 ok=1
+Cmd: preprocess
+  insize=7163 outsize=234 ok=1
+Cmd: preprocess
+  insize=6288 outsize=429 ok=1
+Cmd: preprocess
+  insize=6481 outsize=824 ok=1
+Cmd: preprocess
+  insize=7022 outsize=1246 ok=1
+Cmd: preprocess
+  insize=819 outsize=291 ok=1
+Cmd: preprocess
+  insize=4998 outsize=572 ok=1
+Cmd: preprocess
+  insize=1740 outsize=283 ok=1
+Cmd: preprocess
+  insize=1231 outsize=507 ok=1
+Cmd: preprocess
+  insize=582 outsize=241 ok=1
+Cmd: preprocess
+  insize=898 outsize=319 ok=1
+Cmd: preprocess
+  insize=7136 outsize=1025 ok=1
 Cmd: initializeCompiler
 Cmd: initializeCompiler
