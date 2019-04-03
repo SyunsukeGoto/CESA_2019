@@ -211,7 +211,12 @@ namespace Momoya
                 }
                 else
                 {
-                    break;
+                    //もし0なら1を返す
+                    if(rLevel == 0)
+                    {
+                        rLevel = 1;
+                    }
+                  break;
                 }
            }
             return rLevel; 
