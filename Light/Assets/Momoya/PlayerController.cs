@@ -133,49 +133,54 @@ namespace Momoya
         //移動関数
         public void Move()
         {
+           _vec = new Vector3(
+    Input.GetAxis("Horizontal") * _nowSpeed,
+    0,
+    Input.GetAxis("Vertical") * _nowSpeed
+);
 
-            if (Input.GetKey(_moveKey[(int)MoveDirection.UP]))
-            {
+            //    if (Input.GetKey(_moveKey[(int)MoveDirection.UP]))
+            //    {
 
-                _vec.z = _nowSpeed;
-            }
+            //        _vec.z = _nowSpeed;
+            //    }
 
 
-            if (Input.GetKey(_moveKey[(int)MoveDirection.DOWN]))
-            {
-                _vec.z = -_nowSpeed;
-            }
+            //    if (Input.GetKey(_moveKey[(int)MoveDirection.DOWN]))
+            //    {
+            //        _vec.z = -_nowSpeed;
+            //    }
 
-            if (Input.GetKey(_moveKey[(int)MoveDirection.RIGHT]))
-            {
-                _vec.x = _nowSpeed;
-            }
+            //    if (Input.GetKey(_moveKey[(int)MoveDirection.RIGHT]))
+            //    {
+            //        _vec.x = _nowSpeed;
+            //    }
 
-            if (Input.GetKey(_moveKey[(int)MoveDirection.LEFT]))
-            {
-                _vec.x = -_nowSpeed;
-            }
-            /////////ここより下は停止用処理
+            //    if (Input.GetKey(_moveKey[(int)MoveDirection.LEFT]))
+            //    {
+            //        _vec.x = -_nowSpeed;
+            //    }
+            //    /////////ここより下は停止用処理
 
-            if (Input.GetKeyUp(_moveKey[(int)MoveDirection.UP]))
-            {
-                _vec.z = 0.0f;
-            }
+            //    if (Input.GetKeyUp(_moveKey[(int)MoveDirection.UP]))
+            //    {
+            //        _vec.z = 0.0f;
+            //    }
 
-            if (Input.GetKeyUp(_moveKey[(int)MoveDirection.DOWN]))
-            {
-                _vec.z = 0.0f;
-            }
+            //    if (Input.GetKeyUp(_moveKey[(int)MoveDirection.DOWN]))
+            //    {
+            //        _vec.z = 0.0f;
+            //    }
 
-            if (Input.GetKeyUp(_moveKey[(int)MoveDirection.RIGHT]))
-            {
-                _vec.x = 0.0f;
-            }
+            //    if (Input.GetKeyUp(_moveKey[(int)MoveDirection.RIGHT]))
+            //    {
+            //        _vec.x = 0.0f;
+            //    }
 
-            if (Input.GetKeyUp(_moveKey[(int)MoveDirection.LEFT]))
-            {
-                _vec.x = 0.0f;
-            }
+            //    if (Input.GetKeyUp(_moveKey[(int)MoveDirection.LEFT]))
+            //    {
+            //        _vec.x = 0.0f;
+            //    }
         }
 
         //ハンマーパワーをchargeする関数
@@ -250,6 +255,9 @@ namespace Momoya
         //通常状態
         public void Default()
         {
+            //速度を0にする
+            _vec = Vector3.zero;
+
             if(Input.GetKeyDown(_dashKey))
             {
                 _stateProcessor.State = _stateDash;
@@ -266,6 +274,13 @@ namespace Momoya
             if (Input.GetKeyDown(_strikeKey))
             {
                 _stateProcessor.State = _stateStrike;
+            }
+
+
+            //移動量があればウォークに
+            if(Input.GetAxis("Vertical") != 0.0f || Input.GetAxis("Horizontal")!= 0.0f)
+            {
+                _stateProcessor.State = _stateWalk;
             }
 
             //移動キーのどれかが押されたら移動状態に切り替える
@@ -326,7 +341,7 @@ namespace Momoya
             //移動する
             Move();
             
-            ////ダッシュキーを押されたら走るステートに切り替え
+            ////ダッシュキーを離されたら走るステートに切り替え
             if (Input.GetKeyUp(_dashKey))
             {
                 _stateProcessor.State = _stateWalk;
