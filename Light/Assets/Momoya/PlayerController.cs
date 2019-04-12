@@ -109,6 +109,8 @@ namespace Momoya
         // Update is called once per frame
         void Update()
         {
+            //Vector3 axis = new Vector3(Input.GetAxis("Horizontal") , 0, Input.GetAxis("Vertical") );
+            //Debug.Log(axis);
             PlayerCtrl();
             DebugCtrl(); //デバッグ用
 
@@ -133,11 +135,22 @@ namespace Momoya
         //移動関数
         public void Move()
         {
-           _vec = new Vector3(
-    Input.GetAxis("Horizontal") * _nowSpeed,
-    0,
-    Input.GetAxis("Vertical") * _nowSpeed
-);
+            //HorizontalとVerticalの取得
+            float hor = Input.GetAxis("Horizontal");
+            float ver = Input.GetAxis("Vertical");
+
+            //絶対値0.3より低いなら動かないようにする
+            if(hor <= 0.3f && hor >= -0.3f)
+            {
+                hor = 0.0f;
+            }
+            if(ver <= 0.3f && ver >= -0.3f)
+            {
+                ver = 0.0f;
+            }
+
+            //スピードの代入
+           _vec = new Vector3(hor * _nowSpeed,0, ver * _nowSpeed);
 
             //    if (Input.GetKey(_moveKey[(int)MoveDirection.UP]))
             //    {
