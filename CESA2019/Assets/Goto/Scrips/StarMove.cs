@@ -17,11 +17,13 @@ namespace Goto
     public class StarMove : MonoBehaviour
     {
         [SerializeField]
-        GameObject _starPrefab;                             // 星のプレハブ
+        private GameObject _starPrefab;                             // 星のプレハブ
 
-        GameObject[] _starObject = new GameObject[5];       // 星のゲームオブジェクト
+        private GameObject[] _starObject = new GameObject[5];       // 星のゲームオブジェクト
 
-        float _starAngle;                                   // 角度
+        private float _starAngle;                                   // 角度
+
+        private GameObject _parent;
 
 
         // Start is called before the first frame update
@@ -33,6 +35,7 @@ namespace Goto
             {
                 _starObject[i] = Instantiate(_starPrefab) as GameObject;
             }
+            _parent = transform.root.gameObject;
         }
 
         // Update is called once per frame
@@ -46,7 +49,7 @@ namespace Goto
                 int angle = i * (360 / 5);
                 float x = Mathf.Cos((angle + _starAngle) * Mathf.Deg2Rad);
                 float z = Mathf.Sin((angle + _starAngle) * Mathf.Deg2Rad); ;
-                _starObject[i].transform.position = new Vector3(x, transform.position.y, z);
+                _starObject[i].transform.position = new Vector3(_parent.transform.position.x + x, transform.position.y, _parent.transform.position.z + z);
             }
         }
     }
