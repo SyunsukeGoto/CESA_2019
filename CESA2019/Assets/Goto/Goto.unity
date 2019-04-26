@@ -203,7 +203,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -74.5, y: -425.5}
+  m_AnchoredPosition: {x: -74.5, y: -37}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &181148407
@@ -219,7 +219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 0.13679248, b: 0.13679248, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -498,7 +498,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floor: {fileID: 2436200757834321003, guid: 3c0b8785bc7e35a4dabe3181c85d9704, type: 3}
   _width: 10
-  _fileName: StageData001
+  _fileName: StageData002
   _gameObj:
   - {fileID: 3439771431753046613, guid: 66bc1f4311ebdf44abcbaa15a12319c8, type: 3}
   - {fileID: 640874745163396937, guid: 057e8a4eb02a2f548b3b7a9fd3e0c61e, type: 3}
@@ -651,7 +651,7 @@ MonoBehaviour:
   _dashKey: 0
   _jumpKey: 97
   _strikeKey: 122
-  _hammerLevelLimit: 5
+  _hammerLevelLimit: 3
   _hammerPowerLimit: 100
   _hammerChargSpeed: 30
   _chargeText: {fileID: 181148407}
@@ -1023,7 +1023,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.99340725, g: 0, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

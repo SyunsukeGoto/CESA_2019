@@ -11,9 +11,20 @@ namespace Momoya
     public class PlayerController : MonoBehaviour
     {
         //構造隊の宣言
-        
+
 
         //列挙型の宣言
+        //ハンマーステート
+        public enum HammerState
+        {
+            NONE,
+            WEAK,
+            NOMAL,
+            STRONG,
+
+            NUM
+        }
+
         enum MoveDirection
         {
             UP,         //上
@@ -58,7 +69,7 @@ namespace Momoya
         //ハンマーに必要な変数
         [SerializeField]
         private int _hammerLevelLimit;                                  //ハンマーリミットレベル
-        private int  _hammerLevel;                                        //ハンマーレベル
+        private HammerState _hammerLevel;                                        //ハンマーレベル
         [SerializeField]
         private float _hammerPowerLimit;                                 //ハンマーパワーリミット
         private float _hammerPower;                                      //ハンマーパワー
@@ -86,8 +97,8 @@ namespace Momoya
             _dashSpeed = MoveSpeed * _speedMagnification;
             _nowSpeed = MoveSpeed;
             _nowJumpPower = _normalJumpPower;
-            
-            if(_hammerLevelLimit <= 0)
+
+            if (_hammerLevelLimit <= 0)
             {
                 _hammerLevelLimit = 1; //0にはしない
             }
@@ -188,21 +199,21 @@ namespace Momoya
             }
 
             //ハンマーパワーを上限を越させない
-            if(_hammerPower > _hammerPowerLimit)
+            if (_hammerPower > _hammerPowerLimit)
             {
                 _hammerPower = _hammerPowerLimit;
             }
 
-           
-            
+
+
 
         }
         //ハンマーレベルをチェックする関数
-        int LevelCheck(int importantPoint, int power)
+        HammerState LevelCheck(int importantPoint, int power)
         {
-            int rLevel = 0;
-            
-            while(true)
+            HammerState rLevel = HammerState.NONE;
+
+            while (true)
             {
                 if (power >= importantPoint)
                 {
@@ -212,20 +223,26 @@ namespace Momoya
                 else
                 {
                     //もし0なら1を返す
-                    if(rLevel == 0)
+                    if (rLevel == 0)
                     {
-                        rLevel = 1;
+                        rLevel = HammerState.WEAK;
                     }
-                  break;
+                    break;
                 }
-           }
-            return rLevel; 
+            }
+            return rLevel;
         }
 
         public void PlayerCtrl()
         {
             //速度を足す
             _rg.velocity = new Vector3(_vec.x, this._rg.velocity.y, _vec.z);
+
+            //ハンマーが叩く以外の時はレベルを0にする
+            //if (_stateProcessor.State != _stateStrike)
+            //{
+            //    _hammerLevel = HammerState.NONE;
+            //}
 
             //落下ポイントよりポジションが低ければ初期位置に戻す
             if (_rg.position.y < DropdownPoint)
@@ -250,7 +267,7 @@ namespace Momoya
         //通常状態
         public void Default()
         {
-            if(Input.GetKeyDown(_dashKey))
+            if (Input.GetKeyDown(_dashKey))
             {
                 _stateProcessor.State = _stateDash;
             }
@@ -271,11 +288,11 @@ namespace Momoya
             //移動キーのどれかが押されたら移動状態に切り替える
             for (int i = 0; i < (int)MoveDirection.NUM; i++)
             {
-                if(Input.GetKey(_moveKey[i]))
+                if (Input.GetKey(_moveKey[i]))
                 {
                     _stateProcessor.State = _stateWalk;
                 }
-                           
+
             }
         }
 
@@ -287,13 +304,13 @@ namespace Momoya
             //移動する
             Move();
             //ダッシュキーを押されたら走るステートに切り替え
-            if(Input.GetKey(_dashKey))
+            if (Input.GetKey(_dashKey))
             {
                 _stateProcessor.State = _stateDash;
             }
 
             //ジャンプキーを押されたらジャンプ状態へ
-            if(Input.GetKeyDown(_jumpKey))
+            if (Input.GetKeyDown(_jumpKey))
             {
                 _stateProcessor.State = _stateJump;
             }
@@ -310,7 +327,7 @@ namespace Momoya
                 _stateProcessor.State = _stateDefault;
             }
         }
-        
+
         //ジャンプ状態
         public void Jump()
         {
@@ -325,7 +342,7 @@ namespace Momoya
             _nowSpeed = _dashSpeed;
             //移動する
             Move();
-            
+
             ////ダッシュキーを押されたら走るステートに切り替え
             if (Input.GetKeyUp(_dashKey))
             {
@@ -364,14 +381,21 @@ namespace Momoya
             //ハンマーキーを離したら
             if (Input.GetKeyUp(_strikeKey))
             {
-                _hammerLevel = LevelCheck( _importantPoint, (int)_hammerPower);
+                _hammerLevel = LevelCheck(_importantPoint, (int)_hammerPower);
                 //パワーを0にする
                 _hammerPower = 0.0f;
+
+               // _hammerLevel = HammerState.NONE;
+
                 //ステートをデフォルトに
                 _stateProcessor.State = _stateDefault;
             }
+
+
+
+
         }
-         
+
 
         //デバッグ用関数
         public void DebugCtrl()
