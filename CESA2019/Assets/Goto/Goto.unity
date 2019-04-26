@@ -496,14 +496,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2330d81544d6504bad71e10f4fe34e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floor: {fileID: 2436200757834321003, guid: 3c0b8785bc7e35a4dabe3181c85d9704, type: 3}
   _width: 10
-  _fileName: StageData002
+  _objFileName: ObjectData
+  _stageFileName: StageData
+  _stageNumber: 1
   _gameObj:
   - {fileID: 3439771431753046613, guid: 66bc1f4311ebdf44abcbaa15a12319c8, type: 3}
   - {fileID: 640874745163396937, guid: 057e8a4eb02a2f548b3b7a9fd3e0c61e, type: 3}
   - {fileID: 4839441757332201827, guid: ad912804cea8b364baceab349ad44557, type: 3}
   - {fileID: 8918041294818745074, guid: a6e988c35360ed44893e2d11748f077c, type: 3}
+  - {fileID: 2324714363028220462, guid: c10eb261e2b375b4cbb5993e97852f08, type: 3}
+  _floorObj:
+  - {fileID: 2436200757834321003, guid: 3c0b8785bc7e35a4dabe3181c85d9704, type: 3}
+  - {fileID: 8918041294818745074, guid: a6e988c35360ed44893e2d11748f077c, type: 3}
+  - {fileID: 4839441757332201827, guid: ad912804cea8b364baceab349ad44557, type: 3}
+  - {fileID: 640874745163396937, guid: 057e8a4eb02a2f548b3b7a9fd3e0c61e, type: 3}
   - {fileID: 2324714363028220462, guid: c10eb261e2b375b4cbb5993e97852f08, type: 3}
 --- !u!1 &718484172
 GameObject:
