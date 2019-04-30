@@ -40,7 +40,7 @@ public class CreateStage : MonoBehaviour
 
         //定数の定義
         [SerializeField]
-        private  int _width = 10;
+        private  int _width = 1;
         //変数の定義
         private Vector3 startPos;
         private int _searchWidth;
@@ -151,11 +151,11 @@ public class CreateStage : MonoBehaviour
                 }
                 if ((i) % _searchWidth != 0)
                 {
-                    transform.position = new Vector3(this.transform.position.x + 1.0f, this.transform.position.y, this.transform.position.z);
+                    transform.position = new Vector3(this.transform.position.x + _width, this.transform.position.y, this.transform.position.z);
                 }
                 else
                 {
-                    transform.position = new Vector3(startPos.x, this.transform.position.y, this.transform.position.z - 1);
+                    transform.position = new Vector3(startPos.x, this.transform.position.y, this.transform.position.z - _width);
                 }
 
             }
