@@ -571,6 +571,22 @@ namespace Momoya
                 case "Goal":_stateProcessor.State = _stateGoal; break;
             }
         }
+
+        /// <summary>
+        /// 当たり判定はなれたとき
+        /// </summary>
+        /// <param name="collision"></param>
+        public void OnCollisionExit(Collision collision)
+        {
+            switch (collision.transform.tag)
+            {
+                case "Normal":  break; //普通の速度
+                case "Grass": break; //草むらの速度
+                case "Swamp": break; //沼地の速度
+                case "Gravelroad": _fallCheckFlag = false; break; //砂利道の速度
+                case "Goal":break;
+            }
+        }
         //当たり判定穴などの触れた瞬間に発動するのをチェック
         public void OnCollisionEnter(Collision collision)
         {
