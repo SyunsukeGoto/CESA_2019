@@ -11,7 +11,7 @@ namespace Momoya
     public class PlayerController : MonoBehaviour
     {
         //構造隊の宣言
-        
+
 
         //列挙型の宣言
         enum MoveDirection
@@ -20,9 +20,21 @@ namespace Momoya
             DOWN,       //下
             LEFT,       //左
             RIGHT,      //右
-
+            NONE,       //なし
             NUM,
         }
+
+        enum FloorType
+        {
+            Normal, //普通
+            Grass,  //草むら
+            Swamp,  //沼地
+            Gravelroad,//砂利道
+
+
+            Num
+        }
+
         //定数の定義
 
 
@@ -37,6 +49,9 @@ namespace Momoya
         private float _speedMagnification = 1.5f; //速度の倍率
         private float _dashSpeed;     //ダッシュスピード
         private float _nowSpeed;      //現在のスピード
+        private float _environmentSpeed;//環境速度
+        [SerializeField]
+        private float[] _floorType = new float[(int)FloorType.Num]; //床の種類
         private Vector3 _vec;         //速度
         private float _nowJumpPower;  //現在のジャンプパワー
         [SerializeField]
@@ -58,7 +73,7 @@ namespace Momoya
         //ハンマーに必要な変数
         [SerializeField]
         private int _hammerLevelLimit;                                  //ハンマーリミットレベル
-        private int  _hammerLevel;                                        //ハンマーレベル
+        private int _hammerLevel;                                        //ハンマーレベル
         [SerializeField]
         private float _hammerPowerLimit;                                 //ハンマーパワーリミット
         private float _hammerPower;                                      //ハンマーパワー
@@ -66,13 +81,38 @@ namespace Momoya
         private float _hammerChargSpeed = 1.0f;                          //ハンマーチャージスピード
                                                                          //ハンマーリミット ÷ ハンマーレベル のあたい
         int _importantPoint;
+
+
+        bool _fallFlag;   //転ぶフラグ
+        bool _fallCheckFlag;//転べるか確認するフラグ
+        [SerializeField]
+        float _fallCheckCount = 0.3f;//転び確認カウント
+        float _fallCheckTimer;//転び確認タイマー      
+        [SerializeField]
+        float _fallCount = 1.0f; //転びカウント
+        float _fallTimer;        //転びタイマー
+
+        [SerializeField]
+        int _smallHolecount = 10; //小穴カウント
+        [SerializeField]
+        int _mediumHoleCount = 20;//中穴カウント
+        [SerializeField]
+        int _bigHoleCount;   //大穴カウント
+        int _goalRevaGachaCount;//目標のレバガチャカウント
+        int _nowRevaGachaCount; //現在のレバガチャカウント
+        private MoveDirection _revaGachaState;//レバガチャ状態
+        private MoveDirection _currentRevaGachaState;//1フレーム前のレバガチャ状態
+        private bool _holeFlag;//穴落ちフラグ
         //ステートの宣言
         public StateDefault _stateDefault = new StateDefault();                 //デフォルト状態
         public StateWalk _stateWalk = new StateWalk();                          //歩き状態
         public StateJump _stateJump = new StateJump();                          //ジャンプ状態
         public StateDash _stateDash = new StateDash();                          //ダッシュ状態
         public StateStrike _stateStrike = new StateStrike();                    //叩く状態
-
+        public StateHoal _stateHoal = new StateHoal();                          //穴状態
+        public StateFall _stateFall = new StateFall();                          //転び状態
+        public StateGameOver _stateGameOver = new StateGameOver();              //ゲームオーバー状態
+        public StateGoal _stateGoal = new StateGoal();                          //ゴール状態
         //////////デバッグ用
         public Text _chargeText;     //現在のパワーを表示するデバッグ用変数
         public Text _levelText;      //現在のレベルを表示するデバッグ用変数
@@ -86,8 +126,8 @@ namespace Momoya
             _dashSpeed = MoveSpeed * _speedMagnification;
             _nowSpeed = MoveSpeed;
             _nowJumpPower = _normalJumpPower;
-            
-            if(_hammerLevelLimit <= 0)
+            _environmentSpeed = 1.0f;
+            if (_hammerLevelLimit <= 0)
             {
                 _hammerLevelLimit = 1; //0にはしない
             }
@@ -95,7 +135,12 @@ namespace Momoya
             _hammerLevel = 0;                //ハンマーのレベル
             _hammerPower = 0.0f;             //ハンマーのパワー
             _importantPoint = (int)_hammerPowerLimit / _hammerLevelLimit;
-
+            _fallFlag = false;
+            _fallCheckFlag = false;
+            _fallCheckTimer = 0.0f;
+            _fallTimer = 0.0f;
+            _goalRevaGachaCount = 0;
+            _nowRevaGachaCount = 0;
             //初期ステートをdefaultにする
             _stateProcessor.State = _stateDefault;
             //委譲の設定
@@ -104,12 +149,17 @@ namespace Momoya
             _stateJump.execDelegate = Jump;
             _stateDash.execDelegate = Dash;
             _stateStrike.execDelegate = Strike;
+            _stateHoal.execDelegate = Hoal;
+            _stateFall.execDelegate = Fall;
+            _stateGameOver.execDelegate = GameOver;
+            _stateGoal.execDelegate = StageGoal;
         }
 
         // Update is called once per frame
         void Update()
         {
             PlayerCtrl();
+
             DebugCtrl(); //デバッグ用
 
             //ステートの値が変更されたら実行処理を行う
@@ -128,7 +178,34 @@ namespace Momoya
 
             _stateProcessor.Execute();//実行関数
         }
+        /// <summary>
+        /// 転べるか確認する関数
+        /// </summary>
+        /// <returns>trueNumより大きかったら転ぶ</returns>
+        public bool FallCheck()
+        {
+            //転べる状態の時尚且つプレイヤーが移動しているときにカウントを進める
+            if (_fallCheckFlag == true && ((Mathf.Abs(Input.GetAxis("Vertical")) >= 0.3f) || (Mathf.Abs(Input.GetAxis("Horizontal")) >= 0.3f)))
+            {
+                _fallCheckTimer += Time.deltaTime;
 
+
+                if (_fallCheckTimer > _fallCheckCount)
+                {
+                    int fallNum = UnityEngine.Random.Range(0, 100);
+                    int trueNum = 90;
+
+                    if (fallNum >= trueNum)
+                    {
+
+                        _fallFlag = true;
+                    }
+                    _fallCheckTimer = 0.0f;//転び確認タイマーをもとに戻す
+                }
+
+            }
+            return true;
+        }
 
         //移動関数
         public void Move()
@@ -188,21 +265,21 @@ namespace Momoya
             }
 
             //ハンマーパワーを上限を越させない
-            if(_hammerPower > _hammerPowerLimit)
+            if (_hammerPower > _hammerPowerLimit)
             {
                 _hammerPower = _hammerPowerLimit;
             }
 
-           
-            
+
+
 
         }
         //ハンマーレベルをチェックする関数
         int LevelCheck(int importantPoint, int power)
         {
             int rLevel = 0;
-            
-            while(true)
+
+            while (true)
             {
                 if (power >= importantPoint)
                 {
@@ -212,18 +289,69 @@ namespace Momoya
                 else
                 {
                     //もし0なら1を返す
-                    if(rLevel == 0)
+                    if (rLevel == 0)
                     {
                         rLevel = 1;
                     }
-                  break;
+                    break;
                 }
-           }
-            return rLevel; 
+            }
+            return rLevel;
+        }
+        /// <summary>
+        /// レバガチャ関数
+        /// </summary>
+        /// <returns>ガチャガチャしてたらtrueを返す</returns>ガチャガチャしてなかったらfalseを返す
+        public bool RevaGacha()
+        {
+            _currentRevaGachaState = _revaGachaState;
+
+            if (Input.GetAxis("Vertical") >= 0.3f)
+            {
+                _revaGachaState = MoveDirection.UP;
+            }
+
+            if (Input.GetAxis("Vertical") <= -0.3f)
+            {
+                _revaGachaState = MoveDirection.DOWN;
+            }
+
+            if(Input.GetAxis("Horizontal") >= 3.0f)
+            {
+                _revaGachaState = MoveDirection.RIGHT;
+            }
+
+            if(Input.GetAxis("Horizontal") <= -3.0f)
+            {
+                _revaGachaState = MoveDirection.LEFT;
+            }
+
+            if(Mathf.Abs(Input.GetAxis("Vertical")) <= 0.3f && Mathf.Abs(Input.GetAxis("Horizontal")) <= 0.3f)
+            {
+                _revaGachaState = MoveDirection.NONE;
+            }
+           
+            //前の方向と違う&何か知らおしていたらtrue
+            if(_currentRevaGachaState != _revaGachaState)
+            {
+                return true;
+            }
+            return false;
         }
 
         public void PlayerCtrl()
         {
+            FallCheck();
+            //転びflagがtrueなら転び状態へ
+            if (_fallFlag == true)
+            {
+                _stateProcessor.State = _stateFall; 
+            }
+            //穴落ちがtrueなら穴落ち状態へ
+            if(_holeFlag == true)
+            {
+                _stateProcessor.State = _stateHoal;
+            }
             //速度を足す
             _rg.velocity = new Vector3(_vec.x, this._rg.velocity.y, _vec.z);
 
@@ -250,7 +378,7 @@ namespace Momoya
         //通常状態
         public void Default()
         {
-            if(Input.GetKeyDown(_dashKey))
+            if (Input.GetKeyDown(_dashKey))
             {
                 _stateProcessor.State = _stateDash;
             }
@@ -269,13 +397,13 @@ namespace Momoya
             }
 
             //移動キーのどれかが押されたら移動状態に切り替える
-            for (int i = 0; i < (int)MoveDirection.NUM; i++)
+            for (int i = 0; i < (int)MoveDirection.NUM - 1; i++)
             {
-                if(Input.GetKey(_moveKey[i]))
+                if (Input.GetKey(_moveKey[i]))
                 {
                     _stateProcessor.State = _stateWalk;
                 }
-                           
+
             }
         }
 
@@ -283,17 +411,17 @@ namespace Momoya
         public void Walk()
         {
             //速度をムーブスピードにする
-            _nowSpeed = MoveSpeed;
+            _nowSpeed = MoveSpeed * _environmentSpeed;
             //移動する
             Move();
             //ダッシュキーを押されたら走るステートに切り替え
-            if(Input.GetKey(_dashKey))
+            if (Input.GetKey(_dashKey))
             {
                 _stateProcessor.State = _stateDash;
             }
 
             //ジャンプキーを押されたらジャンプ状態へ
-            if(Input.GetKeyDown(_jumpKey))
+            if (Input.GetKeyDown(_jumpKey))
             {
                 _stateProcessor.State = _stateJump;
             }
@@ -310,7 +438,7 @@ namespace Momoya
                 _stateProcessor.State = _stateDefault;
             }
         }
-        
+
         //ジャンプ状態
         public void Jump()
         {
@@ -322,10 +450,10 @@ namespace Momoya
         //ダッシュ状態
         public void Dash()
         {
-            _nowSpeed = _dashSpeed;
+            _nowSpeed = _dashSpeed * _environmentSpeed;
             //移動する
             Move();
-            
+
             ////ダッシュキーを押されたら走るステートに切り替え
             if (Input.GetKeyUp(_dashKey))
             {
@@ -364,14 +492,65 @@ namespace Momoya
             //ハンマーキーを離したら
             if (Input.GetKeyUp(_strikeKey))
             {
-                _hammerLevel = LevelCheck( _importantPoint, (int)_hammerPower);
+                _hammerLevel = LevelCheck(_importantPoint, (int)_hammerPower);
                 //パワーを0にする
                 _hammerPower = 0.0f;
                 //ステートをデフォルトに
                 _stateProcessor.State = _stateDefault;
             }
         }
-         
+
+        //穴に落ちた状態
+        public void Hoal()
+        {
+            _vec = Vector3.zero; //速度を0にする
+
+            bool revaGachaFlag = RevaGacha();
+            if(revaGachaFlag)
+            {
+                _nowRevaGachaCount++;
+            }
+
+            if(_nowRevaGachaCount > _goalRevaGachaCount)
+            {
+                _nowRevaGachaCount = 0;
+                _holeFlag = false;
+                _stateProcessor.State = _stateDefault;
+            }
+        }
+
+        /// <summary>
+        /// 転び状態
+        /// 一定時間たったらdefaultに戻す
+        /// </summary>
+        public void Fall()
+        {
+            _fallCheckFlag = false;
+            _fallFlag = false;
+            _vec = Vector3.zero;//速度を0
+            _fallTimer += Time.deltaTime;
+
+            if (_fallTimer > _fallCount)
+            {
+                _fallTimer = 0.0f; //タイマーを0に戻す
+                _stateProcessor.State = _stateDefault;
+            }
+        }
+
+        /// <summary>
+        /// ゲームオーバーの関数
+        /// </summary>
+        public void GameOver()
+        {
+
+        }
+        /// <summary>
+        /// ゴールの関数
+        /// </summary>
+        public void StageGoal()
+        {
+
+        }
 
         //デバッグ用関数
         public void DebugCtrl()
@@ -380,5 +559,36 @@ namespace Momoya
             _levelText.text = _hammerLevel.ToString();  //現在のレベル
         }
 
+        //当たり判定(stay)床に対しての効果
+        public void OnCollisionStay(Collision collision)
+        {
+            switch (collision.transform.tag)
+            {
+                case "Normal": _environmentSpeed = _floorType[(int)FloorType.Normal]; break; //普通の速度
+                case "Grass": _environmentSpeed = _floorType[(int)FloorType.Grass]; break; //草むらの速度
+                case "Swamp": _environmentSpeed = _floorType[(int)FloorType.Swamp]; break; //沼地の速度
+                case "Gravelroad": _environmentSpeed = _floorType[(int)FloorType.Gravelroad]; _fallCheckFlag = true; break; //砂利道の速度
+                case "Goal":_stateProcessor.State = _stateGoal; break;
+            }
+        }
+        //当たり判定穴などの触れた瞬間に発動するのをチェック
+        public void OnCollisionEnter(Collision collision)
+        {
+            switch (collision.transform.tag)
+            {
+                case "Hole":
+                    Hole hitHole = collision.transform.GetComponent<Hole>();
+                    switch(hitHole.GetType)
+                    {
+                        case Hole.HoleType.Small: _goalRevaGachaCount = _smallHolecount; _holeFlag = true; break;
+                        case Hole.HoleType.Medium:_goalRevaGachaCount = _mediumHoleCount; _holeFlag = true; break;
+                        case Hole.HoleType.Big:   _goalRevaGachaCount = _bigHoleCount;  _stateProcessor.State = _stateGameOver; break;
+                    }
+                  
+                    Destroy(collision.gameObject);//穴を消す
+                break;
+            }
+
+        }
     }
 }

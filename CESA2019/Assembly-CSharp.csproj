@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Goto\Scrips\StarMove.cs" />
+    <Compile Include="Assets\Momoya\Hole.cs" />
     <Compile Include="Assets\Momoya\PlayerController.cs" />
     <Compile Include="Assets\Momoya\PlayerState.cs" />
     <Compile Include="Assets\Momoya\Scrpt\CreateStage.cs" />
@@ -74,17 +75,17 @@
     <Reference Include="Unity.CollabProxy.Editor">
       <HintPath>C:/Users/s172091/Documents/CESA_2019v4/CESA2019/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/s172091/Documents/CESA_2019v4/CESA2019/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>C:/Users/s172091/Documents/CESA_2019v4/CESA2019/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Postprocessing.Editor">
       <HintPath>C:/Users/s172091/Documents/CESA_2019v4/CESA2019/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Postprocessing.Runtime">
       <HintPath>C:/Users/s172091/Documents/CESA_2019v4/CESA2019/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>C:/Users/s172091/Documents/CESA_2019v4/CESA2019/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Analytics.DataPrivacy">
+      <HintPath>C:/Users/s172091/Documents/CESA_2019v4/CESA2019/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.3.6f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

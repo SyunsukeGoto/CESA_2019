@@ -496,15 +496,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2330d81544d6504bad71e10f4fe34e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floor: {fileID: 2436200757834321003, guid: 3c0b8785bc7e35a4dabe3181c85d9704, type: 3}
-  _width: 10
-  _fileName: StageData001
+  _width: 1
+  _objFileName: FloorTestObjectData
+  _stageFileName: FloorTestStageData
+  _stageNumber: 1
   _gameObj:
   - {fileID: 3439771431753046613, guid: 66bc1f4311ebdf44abcbaa15a12319c8, type: 3}
   - {fileID: 640874745163396937, guid: 057e8a4eb02a2f548b3b7a9fd3e0c61e, type: 3}
   - {fileID: 4839441757332201827, guid: ad912804cea8b364baceab349ad44557, type: 3}
   - {fileID: 8918041294818745074, guid: a6e988c35360ed44893e2d11748f077c, type: 3}
   - {fileID: 2324714363028220462, guid: c10eb261e2b375b4cbb5993e97852f08, type: 3}
+  _floorObj:
+  - {fileID: 4009063589527351066, guid: 62e40a5650f06944d8bcde343f389509, type: 3}
+  - {fileID: 3016171406873385175, guid: d7bc962285e32ba46b494926682b8aa5, type: 3}
+  - {fileID: 390917293714913340, guid: 8b9988f1ceb51db45bf0768978fed373, type: 3}
+  - {fileID: 8086341815014121074, guid: 17a025cf5e14cad479a00c951132e86d, type: 3}
+  - {fileID: 8409878572575624760, guid: 54c77c24d8da6324aac95dff316abda2, type: 3}
+  - {fileID: 2849020815310497364, guid: 8ed25380fa3185447a69940110ac557c, type: 3}
+  - {fileID: 2849020815310497364, guid: 43b9802a2481f03488e6f802745ce1e6, type: 3}
+  - {fileID: 4727752628824407677, guid: dc9baaa7fce7dbb41a83276f2915b215, type: 3}
 --- !u!1 &718484172
 GameObject:
   m_ObjectHideFlags: 0
@@ -519,7 +529,7 @@ GameObject:
   - component: {fileID: 718484173}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Gravelroad
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -646,6 +656,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speedMagnification: 1.5
+  _floorType:
+  - 1
+  - 0.9
+  - 0.8
+  - 1
   _normalJumpPower: 300
   _moveKey: 11010000120100001401000013010000
   _dashKey: 0
@@ -654,6 +669,11 @@ MonoBehaviour:
   _hammerLevelLimit: 5
   _hammerPowerLimit: 100
   _hammerChargSpeed: 30
+  _fallCheckCount: 0.4
+  _fallCount: 1
+  _smallHolecount: 10
+  _mediumHoleCount: 20
+  _bigHoleCount: 0
   _chargeText: {fileID: 181148407}
   _levelText: {fileID: 2039155083}
 --- !u!54 &850962769
@@ -669,9 +689,9 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!65 &850962770
 BoxCollider:
   m_ObjectHideFlags: 0

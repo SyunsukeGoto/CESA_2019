@@ -98,6 +98,40 @@ namespace Momoya
             }
         }
 
+        //プレイヤーが穴におちた状態
+        public class StateHoal : PlayerState
+        {
+            public override string GetStateName()
+            {
+                return "Player Is Hoal";
+            }
+        }
+
+        //プレイヤーが転ぶ状態
+        public class StateFall : PlayerState
+        {
+            public override string GetStateName()
+            {
+                return "Player Is Fall";
+            }
+        }
+
+        //プレイヤーゲームオーバー状態
+        public class StateGameOver : PlayerState
+        {
+            public override string GetStateName()
+            {
+                return "Player Is GameOver";
+            }
+        }
+        //プレイヤーゴール状態
+        public class StateGoal :PlayerState
+        {
+            public override string GetStateName()
+            {
+                return "Player Is Goal";
+            }
+        }
 
 
     }
