@@ -1,4 +1,0 @@
-sceneSetups:
-- path: Assets/Goto/Goto.unity
-  isLoaded: 1
-  isActive: 1
