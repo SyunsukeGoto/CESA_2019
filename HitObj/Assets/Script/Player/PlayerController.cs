@@ -73,6 +73,7 @@ namespace Momoya
         [SerializeField]
         private float _hammerChargSpeed = 1.0f;                          //ハンマーチャージスピード
                                                                          //ハンマーリミット ÷ ハンマーレベル のあたい
+        int _stopTime;                                                   //止まっている時間
         int _importantPoint;
         //ステートの宣言
         public StateDefault _stateDefault = new StateDefault();                 //デフォルト状態
@@ -126,6 +127,13 @@ namespace Momoya
         // Update is called once per frame
         void Update()
         {
+            if (_stopTime >= 0)
+            {
+                //_vec = Vector3.zero;
+                _stateProcessor.State = _stateDefault;
+                _stopTime--;
+            }
+
             //Vector3 axis = new Vector3(Input.GetAxis("Horizontal") , 0, Input.GetAxis("Vertical") );
             //Debug.Log(axis);
             PlayerCtrl();
@@ -146,6 +154,7 @@ namespace Momoya
             }
 
             _stateProcessor.Execute();//実行関数
+
         }
 
 
@@ -425,40 +434,36 @@ namespace Momoya
             _levelText.text = _hammerLevel.ToString();  //現在のレベル
         }
 
+
         void OnCollisionEnter(Collision col)
         {
            switch(col.gameObject.tag)
             {
                 //当たったものが車なら
                 case "car":
-                    HitCar(_carContoller.GetTime());
+                    _stopTime = _carContoller.GetTime();
                     break;
                 //当たったものが自転車なら
                 case "bicycle":
-                    HitBicycle(_bicycleContoller.GetTime());
+                    _stopTime = _bicycleContoller.GetTime();
                     break;
                 //当たったものが蜘蛛の巣なら
                 case "spiderweb":
-                    HitSpiderWeb(_spiderWeb.GetTime());
+                    _stopTime = _spiderWeb.GetTime();
                     break;
                 default:
                     break;
             }
         }
 
-        void HitCar(int time)
+        void Hit()
         {
-            Debug.Log(time);
-        }
-
-        void HitBicycle(int time)
-        {
-            Debug.Log(time);
-        }
-
-        void HitSpiderWeb(int time)
-        {
-            Debug.Log(time);
+            while (_stopTime >= 0)
+            {
+                _vec = Vector3.zero;
+                //_stateProcessor.State = _stateDefault;
+                _stopTime--;
+            }
         }
     }
 }
