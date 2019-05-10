@@ -153,5 +153,10 @@ namespace Goto
                 }
             }
         }
+
+        public Flag GetStarFlag()
+        {
+            return _starflag;
+        }
     }
 }

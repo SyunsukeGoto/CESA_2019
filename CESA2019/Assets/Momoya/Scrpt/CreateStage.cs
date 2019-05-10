@@ -8,10 +8,10 @@ using System;
 
 namespace Momoya
 {
-public class CreateStage : MonoBehaviour
-{
+    public class CreateStage : MonoBehaviour
+    {
         //列挙型の宣言
-       public enum ObjectType
+        public enum ObjectType
         {
             FloorNone = -1,     //何にもなし
             FloorWhite001, //白床001
@@ -23,44 +23,69 @@ public class CreateStage : MonoBehaviour
             Num
         }
 
-        public GameObject floor;
+        public enum GroundType
+        {
+            GroundNone = -1, //何もなし
+            GroundNormal,  //ノーマル床
+            GroundGravelroad,//砂砂利
+            GroundGrass,   //草床
+            GroundSwamp, //沼床
+            GroundHoleSmall, //小穴
+            GroundHoleMedium, //中穴
+            GroundHoleBig, //大穴
+            GroundHoleGoal,//ゴール床
+
+            Num
+        }
+
+
+
 
         //定数の定義
         [SerializeField]
-        private  int _width = 10;
+        private int _width = 1;
         //変数の定義
         private Vector3 startPos;
         private int _searchWidth;
 
         [SerializeField]
-        private string _fileName = "StageData001"; //ファイルの名前
+        private string _objFileName = "ObjectData"; //ファイルの名前(オブジェクトよう)
+        [SerializeField]
+        private string _stageFileName = "StageData"; //ファイルの名前(スーテジ用)
+        [SerializeField]
+        private int _stageNumber = 1; //ステージ番号
         private string _openFilenameExtension;
-        private string _filePath; //ファイルパス        
+        private string _objFilePath; //オブジェクト用ファイルパス
+        private string _stageFilePath; //オブジェクト用ファイルパス         
         [SerializeField]
         private GameObject[] _gameObj = new GameObject[(int)ObjectType.Num]; //オブジェクトを入れる
-
-        private List<int> _objectDataLest; //オブジェクトデータリスト
-    // Start is called before the first frame update
-    void Start()
-    {
+        [SerializeField]
+        private GameObject[] _floorObj = new GameObject[(int)GroundType.Num];//地面用の生成オブジェクト
+        private List<int> _objectDataList; //オブジェクトデータリスト
+        private List<int> _stageDataList;  //ステージデータリスト
+                                           // Start is called before the first frame update
+        void Start()
+        {
             startPos = this.transform.position;
             _searchWidth = 0;
             _openFilenameExtension = ".csv";
-                
-            _filePath = Application.dataPath + @"\Data\StageData\" + _fileName + _openFilenameExtension;
 
-            _objectDataLest = new List<int>(); //データリスト作成  
+            _objFilePath = Application.dataPath + @"\Data\StageData\" + _objFileName  + _openFilenameExtension;
+            _stageFilePath = Application.dataPath + @"\Data\StageData\" + _stageFileName + _openFilenameExtension;
+
+            _objectDataList = new List<int>(); //データリスト作成  
+            _stageDataList = new List<int>();  //データリスト作成
             ReadFile();//ファイルを読み込む
             SearchWidth();
             BuildFloor(); //床を作る
             BuildStage(); //ステージを作る
-    }
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
 
         //ファイル読み込み
         public void ReadFile()
@@ -69,34 +94,43 @@ public class CreateStage : MonoBehaviour
 
             int objData;
             //　一括で取得
-            string[] texts = File.ReadAllText(_filePath).Split(new char[] { ',', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var text in texts)
+            string[] objTexts = File.ReadAllText(_objFilePath).Split(new char[] { ',', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var text in objTexts)
             {
                 int tmp = 0;
-                Int32.TryParse(text,out tmp);
+                Int32.TryParse(text, out tmp);
 
-                _objectDataLest.Add(tmp);
+                _objectDataList.Add(tmp);
             }
-            objData = _objectDataLest.Count;
+            objData = _objectDataList.Count;
 
             //デバッグ
-            for(int i = 0; i < objData; i++)
+            for (int i = 0; i < objData; i++)
             {
-                Debug.Log(_objectDataLest[i]);
+                Debug.Log(_objectDataList[i]);
+            }
+
+            string[] stageTexts = File.ReadAllText(_stageFilePath).Split(new char[] { ',', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var text in stageTexts)
+            {
+                int tmp = 0;
+                Int32.TryParse(text, out tmp);
+
+                _stageDataList.Add(tmp);
             }
 
         }
         //作成関数
         public void BuildStage()
         {
-            for(int i = _objectDataLest.Count -1; i >= 0;i--)
+            for (int i = _objectDataList.Count - 1; i >= 0; i--)
             {
-                if(_objectDataLest[i] != -1)
+                if (_objectDataList[i] != -1)
                 {
-                    GameObject go = Instantiate(_gameObj[_objectDataLest[i]]);
+                    GameObject go = Instantiate(_gameObj[_objectDataList[i]]);
                     go.transform.position = this.transform.position;
                 }
-                if((i) % _searchWidth != 0)
+                if ((i) % _searchWidth != 0)
                 {
                     transform.position = new Vector3(this.transform.position.x + 1.0f, this.transform.position.y, this.transform.position.z);
                 }
@@ -104,24 +138,27 @@ public class CreateStage : MonoBehaviour
                 {
                     transform.position = new Vector3(startPos.x, this.transform.position.y, this.transform.position.z - 1);
                 }
-                
+
             }
         }
 
         //床を作る関数
         public void BuildFloor()
         {
-            for (int i = _objectDataLest.Count - 1; i >= 0; i--)
+            for (int i = _stageDataList.Count - 1; i >= 0; i--)
             {
-                GameObject go = Instantiate(floor);
-                go.transform.position = this.transform.position;
+                if (_stageDataList[i] != -1)
+                {
+                    GameObject go = Instantiate(_floorObj[_stageDataList[i]]);
+                    go.transform.position = this.transform.position;
+                }
                 if ((i) % _searchWidth != 0)
                 {
-                    transform.position = new Vector3(this.transform.position.x + 1.0f, this.transform.position.y, this.transform.position.z);
+                    transform.position = new Vector3(this.transform.position.x + _width, this.transform.position.y, this.transform.position.z);
                 }
                 else
                 {
-                    transform.position = new Vector3(startPos.x, this.transform.position.y, this.transform.position.z - 1.0f);
+                    transform.position = new Vector3(startPos.x, this.transform.position.y, this.transform.position.z - _width);
                 }
 
             }
@@ -133,9 +170,9 @@ public class CreateStage : MonoBehaviour
         public void SearchWidth()
         {
             //widthがオブジェクトデータの総数になるまで回し続ける
-            while(true)
+            while (true)
             {
-                if(_searchWidth * _searchWidth == _objectDataLest.Count)
+                if (_searchWidth * _searchWidth == _objectDataList.Count)
                 {
                     //同じだったら抜ける
                     break;
@@ -149,6 +186,6 @@ public class CreateStage : MonoBehaviour
         }
     }
 
- 
+
 
 }
