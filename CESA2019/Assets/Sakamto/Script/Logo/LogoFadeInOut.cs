@@ -22,7 +22,6 @@ public class LogoFadeInOut : MonoBehaviour
     void Update()
     {
         _tempTime += Time.deltaTime;
-        Debug.Log(_tempTime);
         //フェイドインスタートフラグ
         if(_tempTime >= _InStartCount && _tempTime <= _OutStartCount)
             _fadeInOutScript.GetComponent<FadeInOut>()._isFadeIn = true;

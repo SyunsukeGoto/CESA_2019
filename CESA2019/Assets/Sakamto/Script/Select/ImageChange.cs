@@ -31,7 +31,6 @@ public class ImageChange : MonoBehaviour
         {
             _StageSelectionScript.GetComponent<StageSelectionController>()._stagSelectFlag = false;
             int stageNum = _StageSelectionScript.GetComponent<StageSelectionController>().GetStageName();
-            Debug.Log(stageNum);
            _selectUiImage.sprite = _spriteList[stageNum];
         }
     }
