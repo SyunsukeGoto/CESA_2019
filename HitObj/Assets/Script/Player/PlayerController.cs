@@ -127,9 +127,10 @@ namespace Momoya
         // Update is called once per frame
         void Update()
         {
+            //停止時間が０以上ならカウントを減らす
             if (_stopTime >= 0)
             {
-                //_vec = Vector3.zero;
+                //パターンをデフォルトに固定する
                 _stateProcessor.State = _stateDefault;
                 _stopTime--;
             }
@@ -453,16 +454,6 @@ namespace Momoya
                     break;
                 default:
                     break;
-            }
-        }
-
-        void Hit()
-        {
-            while (_stopTime >= 0)
-            {
-                _vec = Vector3.zero;
-                //_stateProcessor.State = _stateDefault;
-                _stopTime--;
             }
         }
     }
