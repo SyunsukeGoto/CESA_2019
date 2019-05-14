@@ -1,9 +1,8 @@
-<<<<<<< HEAD
-﻿using UnityEngine;
+
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using System;
-/////////////
 using Momoya;
 using Momoya.PlayerState;
 
@@ -427,6 +426,3 @@ namespace Momoya
 
     }
 }
-=======
-﻿
->>>>>>> Tama/master
