@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Momoya/M_FloorTestScene.unity
+- path: Assets/Goto/Goto.unity
   isLoaded: 1
   isActive: 1

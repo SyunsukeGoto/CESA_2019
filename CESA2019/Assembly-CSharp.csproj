@@ -61,10 +61,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Goto\Scrips\StarMove.cs" />
+    <Compile Include="Assets\Isogai\DrunkController.cs" />
+    <Compile Include="Assets\Minmi\NavMeshComponents\Scripts\NavMeshLink.cs" />
+    <Compile Include="Assets\Minmi\NavMeshComponents\Scripts\NavMeshModifier.cs" />
+    <Compile Include="Assets\Minmi\NavMeshComponents\Scripts\NavMeshModifierVolume.cs" />
+    <Compile Include="Assets\Minmi\NavMeshComponents\Scripts\NavMeshSurface.cs" />
+    <Compile Include="Assets\Minmi\Sctipts\BuildNavmesh.cs" />
+    <Compile Include="Assets\Minmi\Sctipts\GhostAI.cs" />
+    <Compile Include="Assets\Minmi\Sctipts\ObstacleController.cs" />
+    <Compile Include="Assets\Minmi\Sctipts\SearchingBehavior.cs" />
+    <Compile Include="Assets\Minmi\Sctipts\SearchingBehaviorGizmosEditor.cs" />
     <Compile Include="Assets\Momoya\Hole.cs" />
-    <Compile Include="Assets\Momoya\PlayerController.cs" />
-    <Compile Include="Assets\Momoya\PlayerState.cs" />
     <Compile Include="Assets\Momoya\Scrpt\CreateStage.cs" />
+    <Compile Include="Assets\Momoya\Scrpt\PlayerController.cs" />
+    <Compile Include="Assets\Momoya\Scrpt\PlayerState.cs" />
     <Compile Include="Assets\MyLibrary\Flag.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/s172091/Documents/CESA_2019v4/CESA2019/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
