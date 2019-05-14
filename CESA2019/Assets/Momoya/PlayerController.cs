@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
@@ -426,3 +427,6 @@ namespace Momoya
 
     }
 }
+=======
+﻿
+>>>>>>> Tama/master

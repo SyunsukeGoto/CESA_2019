@@ -1,0 +1,9 @@
+diff a/CESA_2019/CESA_2019.sln b/CESA_2019/CESA_2019.sln	(rejected hunks)
+@@ -1,6 +1,6 @@
+ ﻿
+ Microsoft Visual Studio Solution File, Format Version 12.00
+-# Visual Studio 2015
++# Visual Studio 16
+ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{EE5C3CF2-55B1-3A9C-AA90-1408A4B96866}"
+ EndProject
+ Global
