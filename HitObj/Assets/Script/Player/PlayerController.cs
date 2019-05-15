@@ -435,17 +435,19 @@ namespace Momoya
             _levelText.text = _hammerLevel.ToString();  //現在のレベル
         }
 
-
+        //当たり判定
         void OnCollisionEnter(Collision col)
         {
            switch(col.gameObject.tag)
             {
                 //当たったものが車なら
                 case "car":
+                    KnockBack(_carContoller.GetSpeed());
                     _stopTime = _carContoller.GetTime();
                     break;
                 //当たったものが自転車なら
                 case "bicycle":
+                    KnockBack(_carContoller.GetSpeed());
                     _stopTime = _bicycleContoller.GetTime();
                     break;
                 //当たったものが蜘蛛の巣なら
@@ -455,6 +457,13 @@ namespace Momoya
                 default:
                     break;
             }
+        }
+
+        //ノックバック
+        void KnockBack(Vector3 speed)
+        {
+            Debug.Log("yes");
+            _vec = new Vector3(2.0f, speed.y, speed.z);
         }
     }
 }

@@ -41,6 +41,11 @@ namespace Kazu
         {
             return DoNotMove;
         }
+
+        public Vector3 GetSpeed()
+        {
+            return _carSpeed;
+        }
     }
 }
 

@@ -11,7 +11,7 @@ namespace Kazu
         const float DropdownPoint = -3.0f; //落下ポイント
         //変数の定義
         [SerializeField]
-        private Vector3 _carSpeed;         //スピード
+        private Vector3 _bicycleSpeed;         //スピード
 
         private Rigidbody _rg;             //リジットボディ
         private Vector3 _startPos;         //初期位置
@@ -26,7 +26,7 @@ namespace Kazu
         void Update()
         {
             //スピードの加速
-            _rg.velocity = new Vector3(_carSpeed.x, this._rg.velocity.y, _carSpeed.z);
+            _rg.velocity = new Vector3(_bicycleSpeed.x, this._rg.velocity.y, _bicycleSpeed.z);
 
             //デバッグ用
             //落下ポイントよりポジションが低ければ初期位置に戻す
@@ -39,6 +39,11 @@ namespace Kazu
         public int GetTime()
         {
             return DoNotMove;
+        }
+
+        public Vector3 GetSpeed()
+        {
+            return _bicycleSpeed;
         }
     }
 }

@@ -98,7 +98,14 @@ namespace Momoya
             }
         }
 
-
+        //ノックバック状態のクラス
+        public class StateKnockBack:PlayerState
+        {
+            public override string GetStateName()
+            {
+                return "Player Is KnockBack";
+            }
+        }
 
     }
 }
