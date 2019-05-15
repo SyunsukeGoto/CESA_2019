@@ -39,7 +39,7 @@ public class GhostAI : MonoBehaviour
         // 子供オブジェクトの生成 索敵オブジェクト
         GameObject searchingObj = new GameObject("Finder");
         searchingObj.transform.parent = this.gameObject.transform;
-        searchingObj.transform.localPosition = new Vector3(0,0,0);
+        searchingObj.transform.localPosition = new Vector3(0, 0, 0);
 
         SphereCollider col = searchingObj.AddComponent<SphereCollider>();
         col.radius = m_searchRadius;
@@ -49,7 +49,7 @@ public class GhostAI : MonoBehaviour
         m_searcher.onFound += OnFound;
         m_searcher.onLost += OnLost;
 
-        
+
 
         m_navAgent = GetComponent<NavMeshAgent>();
 
@@ -74,7 +74,7 @@ public class GhostAI : MonoBehaviour
                 GotoNextPoint();
         }
 
-        
+
     }
 
     void GotoNextPoint()
@@ -94,7 +94,7 @@ public class GhostAI : MonoBehaviour
     // 見つけたときの処理
     private void OnFound(GameObject i_foundObject)
     {
-        if(i_foundObject.name == m_searchingName)
+        if (i_foundObject.name == m_searchingName)
         {
             m_target = i_foundObject.transform;
             m_navAgent.destination = m_target.position;
@@ -102,12 +102,12 @@ public class GhostAI : MonoBehaviour
             Debug.Log("Find!!");
         }
 
-        if(i_foundObject.name == m_avoidingName)
+        if (i_foundObject.name == m_avoidingName)
         {
             m_target = i_foundObject.transform;
 
             Vector3 dir = i_foundObject.transform.position - transform.position;
-            m_navAgent.destination = Vector3.Reflect(dir,Vector3.up);
+            m_navAgent.destination = Vector3.Reflect(dir, Vector3.up);
 
             Debug.Log("avoid");
         }

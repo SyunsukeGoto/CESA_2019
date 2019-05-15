@@ -7,7 +7,7 @@ namespace Isogai
     public class DrunkController : MonoBehaviour
     {
         [SerializeField]
-        private Transform playerTarget;   // 追いかける対象
+        public Transform playerTarget;   // 追いかける対象
         private float speed = 0.01f;      // 移動スピード
         
         [SerializeField]

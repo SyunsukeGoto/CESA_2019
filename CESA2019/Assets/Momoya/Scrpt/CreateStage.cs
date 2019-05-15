@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Text;
 using System.IO;
 using System;
-
+using UnityEngine.AI;
 
 namespace Momoya
 {
@@ -63,10 +63,28 @@ namespace Momoya
         private GameObject[] _floorObj = new GameObject[(int)GroundType.Num];//地面用の生成オブジェクト
         private List<int> _objectDataList; //オブジェクトデータリスト
         private List<int> _stageDataList;  //ステージデータリスト
-                                           // Start is called before the first frame update
+        [SerializeField]
+        private GameObject enemy; //敵
+        private GameObject player;//プレイヤー
+        private Vector3 startPlayerPos;
+        [SerializeField]
+        private float time = 0.0f;
+        [SerializeField]
+        private float span = 5.0f;
+
+        bool enemyFlag = false;
+        [SerializeField]
+        NavMeshSurface navMeshSurface; //ナビメッシュ
+        [SerializeField]
+        Isogai.DrunkController drunk;
+
+        GameObject test;
+
+        // Start is called before the first frame update
         void Start()
         {
             startPos = this.transform.position;
+            startPlayerPos = Vector3.zero;
             _searchWidth = 0;
             _openFilenameExtension = ".csv";
 
@@ -78,13 +96,46 @@ namespace Momoya
             ReadFile();//ファイルを読み込む
             SearchWidth();
             BuildFloor(); //床を作る
-            BuildStage(); //ステージを作る
+            BuildStage(); //オブジェクトを作る
+            time = 0.0f;
+
+            navMeshSurface.BuildNavMesh();
         }
 
         // Update is called once per frame
         void Update()
         {
+            //特定のタイムが経過後敵を生成する
+            time += Time.deltaTime;
+            if(time > span && !enemyFlag)
+            {
+                CreateEnemy();
+                time = 0.0f; 
+                enemyFlag = true;
+             
+            }
 
+            //エネミーのフラグをオンの時生成したオブジェクトのポジションをデバッグで表示
+            if(enemyFlag)
+            {
+                Debug.Log(test.transform.position);
+            }
+           
+            
+        }
+        /// <summary>
+        /// 敵を作る関数
+        /// </summary>
+        void CreateEnemy()
+        {
+            GameObject go = GameObject.Instantiate(enemy) as GameObject;
+            go.GetComponent<Makoto.Enemy>()._player = player;
+            go.GetComponent<Makoto.Enemy>()._starMove = player.GetComponent<Momoya.PlayerController>()._starMove;
+
+            go.transform.position = startPlayerPos;
+       
+            Debug.Log("作った！" + go.transform.position);
+            test = go;
         }
 
         //ファイル読み込み
@@ -129,6 +180,14 @@ namespace Momoya
                 {
                     GameObject go = Instantiate(_gameObj[_objectDataList[i]]);
                     go.transform.position = this.transform.position;
+                    //プレイヤーの位置とオブジェクトを記憶
+                    if(_objectDataList[i] == (int)GroundType.GroundGrass)
+                    {
+                        player = go;
+                        drunk.playerTarget = go.transform;
+                        startPlayerPos = new Vector3(30.0f, 0.5f ,- 30.0f);
+                       // startPlayerPos = go.transform.position;
+                    }
                 }
                 if ((i) % _searchWidth != 0)
                 {
@@ -140,6 +199,7 @@ namespace Momoya
                 }
 
             }
+            
         }
 
         //床を作る関数

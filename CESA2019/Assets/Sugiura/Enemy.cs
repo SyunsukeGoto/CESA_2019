@@ -12,10 +12,10 @@ namespace Makoto
         private float _speed;
 
         [SerializeField, Header("プレイヤー")]
-        private GameObject _player;
+        public GameObject _player;
 
         [SerializeField, Header("光のやつ")]
-        private Goto.StarMove _starMove;
+        public Goto.StarMove _starMove;
 
         [SerializeField, Header("ナビメッシュエージェント")]
         private NavMeshAgent _nma;
@@ -36,10 +36,17 @@ namespace Makoto
         private float TIME_OUT = 1.0f;
         private float _timeElapsed;
 
+        private void Awake()
+        {
+            _nma.enabled = false;
+
+        }
+
         // Start is called before the first frame update
         void Start()
         {
-
+            Debug.Log("誕生!" + this.transform.position);
+            _nma.enabled = true;
         }
 
         // Update is called once per frame
@@ -55,7 +62,7 @@ namespace Makoto
             {
                 // プレイヤーの位置をセット
                 _nma.SetDestination(_player.transform.position);
-                
+
                 // 位置を記憶する
                 AddPosMemory(transform.position);
 
