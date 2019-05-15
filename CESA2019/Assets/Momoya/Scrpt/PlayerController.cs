@@ -560,6 +560,7 @@ namespace Momoya
                 }
                            
             }
+            _anime.Idle();
         }
 
         //歩き状態の関数
