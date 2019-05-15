@@ -700,6 +700,11 @@ namespace Momoya
             return _decisionHammerState;
         }
 
+        public int GetNowHammerState()
+        {
+            return _nowHammerState;
+        }
+
         //穴に落ちた状態
         public void Hoal()
         {

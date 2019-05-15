@@ -21,6 +21,7 @@ TagManager:
   - 
   - PostProcessing
   - Floor
+  - Bloom
   - 
   - 
   - 
@@ -28,10 +29,9 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - monster
+  - ground
+  - miniMap
   - 
   - 
   - 

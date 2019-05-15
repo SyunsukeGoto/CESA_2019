@@ -905,57 +905,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebea07abaf309fd45ba2b282db07bdc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _startPos: {x: 0, y: 0, z: 0}
-  _speedMagnification: 1.5
-  _dashSpeed: 0
-  _nowSpeed: 0
-  _vec: {x: 0, y: 0, z: 0}
-  _nowJumpPower: 0
-  _normalJumpPower: 300
-  _rg: {fileID: 0}
-  _moveKey: 11010000120100001401000013010000
-  _dashKey: 0
-  _jumpKey: 97
-  _strikeKey: 122
-  _beforeStateName: 
-  _hammerLevelLimit: 5
-  _hammerLevel: 0
-  _hammerPowerLimit: 100
-  _hammerPower: 0
-  _hammerChargSpeed: 30
-  _time: 0
-  _importantPoint: 0
-  _nowHammerState: 0
-  _decisionHammerState: 0
-  _jumpFlag: 0
-  _chargeText: {fileID: 181148407}
-  _levelText: {fileID: 2039155083}
 --- !u!54 &850962769
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1132,6 +1081,7 @@ GameObject:
   - component: {fileID: 583456517}
   - component: {fileID: 583456513}
   - component: {fileID: 583456515}
+  - component: {fileID: 1130531384}
   m_Layer: 0
   m_Name: ghost
   m_TagString: Untagged
@@ -1139,6 +1089,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1130531384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1130531383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8b5921f85321434882d161c9aafddc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _starPrefab: {fileID: 2578148503860108335, guid: a7f84799410090a43ae546255181a0eb,
+    type: 3}
+  _playerControllerObject: {fileID: 100164, guid: db81d87ad5d9a5c4181b17cb956f2fc5,
+    type: 3}
 --- !u!4 &1130698261
 Transform:
   m_ObjectHideFlags: 0

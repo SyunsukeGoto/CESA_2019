@@ -70,8 +70,8 @@ namespace Momoya
             _searchWidth = 0;
             _openFilenameExtension = ".csv";
 
-            _objFilePath = Application.dataPath + @"\Data\StageData\" + _objFileName  + _stageNumber+ _openFilenameExtension;
-            _stageFilePath = Application.dataPath + @"\Data\StageData\" + _stageFileName + _stageNumber +_openFilenameExtension;
+            _objFilePath = Application.dataPath + "/StreamingAssets" + @"\Data\StageData\" + _objFileName  + _stageNumber+ _openFilenameExtension;
+            _stageFilePath = Application.dataPath+ "/StreamingAssets" + @"\Data\StageData\" + _stageFileName + _stageNumber +_openFilenameExtension;
 
             _objectDataList = new List<int>(); //データリスト作成  
             _stageDataList = new List<int>();  //データリスト作成
