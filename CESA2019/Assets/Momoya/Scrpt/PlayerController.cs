@@ -98,7 +98,8 @@ namespace Momoya
         int _decisionHammerState;       // キーが離され決定されたハンマー状態
 
         private bool _flag;             //ジャンプ  
-
+        [SerializeField]
+        Makoto.PlayerAnime _anime; //アニメーター
 
         bool _fallFlag;   //転ぶフラグ
         bool _fallCheckFlag;//転べるか確認するフラグ
@@ -284,6 +285,8 @@ namespace Momoya
             {
                 _vec.x = 0.0f;
             }
+
+            _anime.Walk(); //歩かせる
         }
 
         public void ConfusionMove(int confusionValue)
@@ -431,6 +434,15 @@ namespace Momoya
                   break;
                 }
            }
+            //アニメーター変更
+            switch (rLevel)
+            {
+                case (int)HammerState.WEAK: _anime.WeakAttack(); break;
+                case (int)HammerState.NOMAL: _anime.NomalAttack(); break;
+                case (int)HammerState.STRENGTH: _anime.StrengthAttack(); break;
+            }
+
+
             return rLevel; 
         }
 
@@ -496,6 +508,13 @@ namespace Momoya
             {
                 _rg.position = _startPos;
             }
+
+            float angle = 0.0f;
+
+            angle = (float)Math.Atan2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * UnityEngine.Mathf.Rad2Deg ;
+
+            transform.localRotation = Quaternion.Euler(0, angle, 0);
+
         }
 
         //止まっているかチェックする関数

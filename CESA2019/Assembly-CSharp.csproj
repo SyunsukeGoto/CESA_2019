@@ -77,6 +77,7 @@
     <Compile Include="Assets\Momoya\Scrpt\PlayerState.cs" />
     <Compile Include="Assets\MyLibrary\Flag.cs" />
     <Compile Include="Assets\Sugiura\Enemy.cs" />
+    <Compile Include="Assets\モーション\PlayerAnime.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/s172091/Documents/CESA_2019v4/CESA2019/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
