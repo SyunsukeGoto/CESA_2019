@@ -121,6 +121,9 @@ namespace Momoya
         private MoveDirection _revaGachaState;//レバガチャ状態
         private MoveDirection _currentRevaGachaState;//1フレーム前のレバガチャ状態
         private bool _holeFlag;//穴落ちフラグ
+
+        bool _rotationFlag; //回転フラグ
+
         //ステートの宣言
         public StateDefault _stateDefault = new StateDefault();                 //デフォルト状態
         public StateWalk _stateWalk = new StateWalk();                          //歩き状態
@@ -132,10 +135,12 @@ namespace Momoya
         public StateFall _stateFall = new StateFall();                          //転び状態
         public StateGameOver _stateGameOver = new StateGameOver();              //ゲームオーバー状態
         public StateGoal _stateGoal = new StateGoal();                          //ゴール状態
+
         //////////デバッグ用
         //////////デバッグ用
         public Text _chargeText;     //現在のパワーを表示するデバッグ用変数
         public Text _levelText;      //現在のレベルを表示するデバッグ用変数
+        private float _playerAngle = 0.0f;
 
         // Use this for initialization
         void Start()
@@ -168,6 +173,7 @@ namespace Momoya
             _fallTimer = 0.0f;
             _goalRevaGachaCount = 0;
             _nowRevaGachaCount = 0;
+            _rotationFlag = false;
 
             //初期ステートをdefaultにする
             _stateProcessor.State = _stateDefault;
@@ -286,6 +292,7 @@ namespace Momoya
                 _vec.x = 0.0f;
             }
 
+            _rotationFlag = true;
             _anime.Walk(); //歩かせる
         }
 
@@ -509,11 +516,17 @@ namespace Momoya
                 _rg.position = _startPos;
             }
 
-            float angle = 0.0f;
+            //ゲーコン確認用
+            //_rotationFlag = true;
 
-            angle = (float)Math.Atan2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * UnityEngine.Mathf.Rad2Deg ;
+            if(_rotationFlag)
+            {
+                //プレイヤーの角度を取得
+                _playerAngle = SetAngle();
+            }
 
-            transform.localRotation = Quaternion.Euler(0, angle, 0);
+            //プレイヤーの角度を回転に渡す
+            transform.localRotation = Quaternion.Euler(0, _playerAngle, 0);
 
         }
 
@@ -560,6 +573,7 @@ namespace Momoya
                 }
                            
             }
+            _rotationFlag = false;
             _anime.Idle();
         }
 
@@ -658,6 +672,7 @@ namespace Momoya
                 _nowHammerState = (int)HammerState.NONE;
                 //ステートをふらふらに
                 _stateProcessor.State = _stateConfusion;
+               
             }
 
             //if (_decisionHammerState != (int)HammerState.NONE)
@@ -775,6 +790,14 @@ namespace Momoya
         public void StageGoal()
         {
 
+        }
+
+        public float SetAngle()
+        {
+
+            float angle ;
+
+            return angle = (float)Math.Atan2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * UnityEngine.Mathf.Rad2Deg;
         }
 
         //デバッグ用関数
