@@ -27,6 +27,14 @@ namespace Goto
             GENERATE_STATE = (1 << 0),     // 生成フラグ
         }
 
+        public enum LightRange
+        {
+            NONE,
+            WEAK,
+            NOMAL,
+            STRENGTH,
+        }
+
         public const int STAR_LIFE = 300;
 
         [SerializeField]
@@ -46,6 +54,8 @@ namespace Goto
 
         private float _time;
 
+        private LightRange _lightRange;
+
         [SerializeField]
         private GameObject _playerControllerObject;
         private Momoya.PlayerController _playerController;
@@ -59,7 +69,8 @@ namespace Goto
             _starAngle = 0f;
             _radius = 0f;
             _time = 0f;
-            _playerController = _playerControllerObject.GetComponent<Momoya.PlayerController>();          
+            _playerController = _playerControllerObject.GetComponent<Momoya.PlayerController>();
+            _lightRange = LightRange.NONE;     
         }
         
         /// <summary>
@@ -88,19 +99,23 @@ namespace Goto
                         case (int)Momoya.PlayerController.HammerState.WEAK:
                             _shineRange = 1.5f;
                             _radius = 3.5f;
+                            _lightRange = LightRange.WEAK;
                             break;
 
                         case (int)Momoya.PlayerController.HammerState.NOMAL:
                             _shineRange = 2.5f;
                             _radius = 2.5f;
+                            _lightRange = LightRange.NOMAL;
                             break;
 
                         case (int)Momoya.PlayerController.HammerState.STRENGTH:
                             _shineRange = 3.5f;
                             _radius = 1.5f;
+                            _lightRange = LightRange.STRENGTH;
                             break;
 
                         default:
+                            _lightRange = LightRange.NONE;
                             break;
                     }
 
@@ -157,6 +172,23 @@ namespace Goto
         public Flag GetStarFlag()
         {
             return _starflag;
+        }
+
+        public float GetLightRangeRadius()
+        {
+            switch(_lightRange)
+            {
+                case LightRange.NONE:
+                    return 0.0f;
+                case LightRange.WEAK:
+                    return 1.0f;
+                case LightRange.NOMAL:
+                    return 1.5f;
+                case LightRange.STRENGTH:
+                    return 2.0f;
+            }
+
+            return 0.0f;
         }
     }
 }

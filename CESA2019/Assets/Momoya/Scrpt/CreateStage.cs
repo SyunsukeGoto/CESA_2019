@@ -43,7 +43,7 @@ namespace Momoya
 
         //定数の定義
         [SerializeField]
-        private int _width = 1;
+        private float _width = 1;
         //変数の定義
         private Vector3 startPos;
         private int _searchWidth;
@@ -70,8 +70,8 @@ namespace Momoya
             _searchWidth = 0;
             _openFilenameExtension = ".csv";
 
-            _objFilePath = Application.dataPath + @"\Data\StageData\" + _objFileName  + _openFilenameExtension;
-            _stageFilePath = Application.dataPath + @"\Data\StageData\" + _stageFileName + _openFilenameExtension;
+            _objFilePath = Application.dataPath + "/StreamingAssets" + @"\Data\StageData\" + _objFileName  + _stageNumber+ _openFilenameExtension;
+            _stageFilePath = Application.dataPath+ "/StreamingAssets" + @"\Data\StageData\" + _stageFileName + _stageNumber +_openFilenameExtension;
 
             _objectDataList = new List<int>(); //データリスト作成  
             _stageDataList = new List<int>();  //データリスト作成
@@ -132,11 +132,11 @@ namespace Momoya
                 }
                 if ((i) % _searchWidth != 0)
                 {
-                    transform.position = new Vector3(this.transform.position.x + 1.0f, this.transform.position.y, this.transform.position.z);
+                    transform.position = new Vector3(this.transform.position.x + _width, this.transform.position.y, this.transform.position.z);
                 }
                 else
                 {
-                    transform.position = new Vector3(startPos.x, this.transform.position.y, this.transform.position.z - 1);
+                    transform.position = new Vector3(startPos.x, this.transform.position.y, this.transform.position.z - _width);
                 }
 
             }

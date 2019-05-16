@@ -8,22 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/UseScene/LogoScene.unity
-    guid: ea0d1bceaafce404fbadb82229c5d549
-  - enabled: 1
-    path: Assets/Scenes/UseScene/StartScene.unity
-    guid: cca4ab1a3662b6a4db04aed6ac2d16ca
-  - enabled: 1
-    path: Assets/Scenes/UseScene/SelectScene.unity
-    guid: c046169abf1b0f14c9c234d16f3a3a1e
-  - enabled: 1
-    path: Assets/Scenes/UseScene/PlayScene.unity
-    guid: 0b182ab5500c47e4eb07b38c61b491df
-  - enabled: 1
-    path: Assets/Scenes/UseScene/ResultScene.unity
-    guid: 27a88306cd83d7743bbeaf7bd523dc63
+    path: Assets/Goto/Goto.unity
+    guid: 14cf5d7a2401f464b8a8fe07dc2c4b36
   m_configObjects: {}
